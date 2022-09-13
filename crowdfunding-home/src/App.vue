@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p>http://192.168.1.100:10010/swagger-ui.html</p>
     <index></index>
     <router-view/>
   </div>
