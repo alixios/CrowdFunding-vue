@@ -1,0 +1,38 @@
+.box-container
+{
+    width: 960px;
+    height: auto;
+    min-height: 600px;
+    margin: 15px auto;
+}
+
+.user-image
+{
+    height: 125px;
+    border-radius: 4px;
+    width: 75%;
+    object-fit: cover;
+    margin-left: 20px;
+}
+
+.pdding-left-right5
+{
+    padding: 5px 0px;
+}
+
+.pdding-left-right15
+{
+    display: inline-block;
+    margin: 0px 15px;
+    padding: 15px 0px;
+}
+
+
+.user-image:hover
+{
+    box-shadow: 3px 35px 77px -17px rgba(0, 0, 0, 0.8);
+    transform: scale(1.06);
+    transition: all 0.3s ease-in-out;
+    z-index: 100;
+    background-color: #fff;
+}
