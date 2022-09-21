@@ -127,11 +127,7 @@
                   </h4>
                   <div class="skill mb-30">
                     <p>目标金额 <span>￥ {{ item.targetPrice }}</span></p>
-                    <div class="progress">
-                      <div class="layui-progress" lay-showPercent="yes">
-                        <div class="layui-progress-bar" lay-percent="${item.progress}%"></div>
-                      </div>
-                    </div>
+                    <el-progress :text-inside="true" :stroke-width="13"  status="success" :percentage="percentage(item.preparePrice,item.targetPrice)" ></el-progress>
                   </div>
                   <div class="projects__content--manager">
                     <ul class="project-manager">
@@ -299,6 +295,12 @@ export default {
       this.$store.state.projectId = projectId;
       this.$router.push(`/home/project/${projectId}`);
     },
+    percentage(preparePrice,targetPrice) {
+      return (preparePrice / targetPrice)*100
+    },
+    format(percentage) {
+      return percentage === 100 ? '满' : `${percentage}%`;
+    }
   }
 }
 </script>

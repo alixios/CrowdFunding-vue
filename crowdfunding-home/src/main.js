@@ -21,7 +21,10 @@ import {
   faGift,
   faGem,
   faTrophy,
-  faChevronRight
+  faChevronRight,
+    faChevronLeft,
+    faUserCircle,
+
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -34,7 +37,9 @@ library.add(
     faGift,
     faGem,
     faTrophy,
-    faChevronRight
+    faChevronRight,
+    faChevronLeft,
+    faUserCircle,
 );
 
 import 'bootstrap/dist/css/bootstrap.css'

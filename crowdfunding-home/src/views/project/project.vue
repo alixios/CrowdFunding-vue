@@ -53,22 +53,20 @@
                     {{item.caption}}
                 </h4>
                 <div class="skill mb-30">
-                  <p>目标金额 <span>{{item.targetPrice}}</span></p>
-                      <el-progress :format="format" :percentage="percentage(item.preparePrice,item.targetPrice)" status="success"></el-progress>
+                  <p><a>目标金额 {{item.targetPrice}}</a></p>
+                    <el-progress  :text-inside="true" :stroke-width="13"  status="success" :percentage="percentage(item.preparePrice,item.targetPrice)" ></el-progress>
                 </div>
                 <div class="projects__content--manager">
                   <ul class="project-manager">
                     <li>
                       <a>
-                        <img class="layui-nav-img" v-bind:src=item.avatar alt="">
-                        <span>{{item.homeUserName}}</span>
-                        <span>{{item.sex}}</span>
-                      </a>
-                    </li>
+                        <img v-bind:src=item.avatar alt="" width="38" height="38">
+                        {{ item.homeUserName }}</a></li>
                     <li>
                       <p class="time">
                         <i><font-awesome-icon :icon="['fas', 'fa-clock']"/></i>
-                        {{item.start}}</p>
+                        {{item.start}}
+                      </p>
                     </li>
                   </ul>
                 </div>
@@ -146,10 +144,8 @@ export default {
     percentage(preparePrice,targetPrice) {
       return (preparePrice / targetPrice)*100
     },
-    format(percentage) {
-      return percentage === 100 ? '满' : `${percentage}%`;
-    }
   },
+
 
 }
 </script>

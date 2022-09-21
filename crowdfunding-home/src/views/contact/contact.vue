@@ -43,8 +43,7 @@
               <i class="far fa-map-marker-alt"></i>
             </div>
             <div class="contact-box__content">
-              <h4>地点:上海市浦东新区上海猿礼科技</h4>
-              <h5>上海市浦东新区上海猿礼科技</h5>
+              <h4>地点:桂林理工大学</h4>
             </div>
           </div>
         </div>
@@ -55,7 +54,7 @@
             </div>
             <div class="contact-box__content">
               <h4>Email</h4>
-              <h5>115432031@qq.com</h5>
+              <h5>1786909765@qq.com</h5>
             </div>
           </div>
         </div>
@@ -66,7 +65,7 @@
             </div>
             <div class="contact-box__content">
               <h4>Phone</h4>
-              <h5>+012 (345) 678 99</h5>
+              <h5>123456789</h5>
             </div>
           </div>
         </div>
@@ -123,12 +122,19 @@
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-6">
                   <div class="msg-btn text-md-center">
+                    <div v-if="homeUserId === null">
+                      <a class="theme_btn theme_btn_bg" href="/home/homeUser/login" >请先登录 <i>
+                        <font-awesome-icon :icon="['fas', 'fa-arrow-right']"/>
+                      </i></a>
+                    </div>
+                    <div v-else>
+                      <a class="theme_btn theme_btn_bg" href="javascript:void(0);" id="contact-submit">提交 <i>
+                        <font-awesome-icon :icon="['fas', 'fa-arrow-right']"/>
+                      </i></a>
+                    </div>
 
-                    <a class="theme_btn theme_btn_bg" href="javascript:void(0);" id="contact-submit">提交 <i
-                        class="far fa-arrow-right"></i></a>
 
-                    <a class="theme_btn theme_btn_bg" href="/home/homeUser/login" >请先登录 <i
-                        class="far fa-arrow-right"></i></a>
+
 
 
                 </div>
@@ -160,7 +166,20 @@
 
 <script>
 export default {
-name: "contact"
+  name: "contact",
+  created() {
+    this.getUid()
+  },
+  data() {
+    return {
+      homeUserId: null,
+    }
+  },
+  methods: {
+    getUid(){
+      this.homeUserId = window.sessionStorage.getItem('uid')
+    },
+  },
 }
 </script>
 
