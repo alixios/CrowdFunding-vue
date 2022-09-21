@@ -17,7 +17,9 @@
                   <li><a href="/home/about_us/index">关于我们</a></li>
                   <li>
                     <a href="/home/project/project">项目列表
-                      <i ><font-awesome-icon :icon="['fas', 'fa-chevron-down']"/></i>
+                      <i>
+                        <font-awesome-icon :icon="['fas', 'fa-chevron-down']"/>
+                      </i>
                     </a>
 
                     <ul class="submenu">
@@ -44,12 +46,17 @@
           </div>
           <div class="col-xl-3 col-lg-1 col-md-6 col-6 text-right d-flex align-items-center justify-content-end">
             <div class=" mr-10">
-              <v-if
+              <div v-if="homeUserId !== null" @click="toLogout" class="theme_btn theme_btn_bg">
+                  注销 <i>
+                  <font-awesome-icon :icon="['fas', 'fa-arrow-right']"/>
+                </i>
+              </div>
+              <div v-else="homeUserId === null" @click="toLogin" class="theme_btn theme_btn_bg">
+                  登录 <i>
+                  <font-awesome-icon :icon="['fas', 'fa-arrow-right']"/>
+                </i>
 
-<!--              <a href="/home/homeUser/logout" class="theme_btn theme_btn_bg">注销 <i class="far fa-arrow-right"></i></a>-->
-
-              <a href="/home/homeUser/login"  class="theme_btn theme_btn_bg">登录 <i ><font-awesome-icon :icon="['fas', 'fa-arrow-right']"/></i></a>
-
+              </div>
             </div>
 
           </div>
@@ -61,7 +68,33 @@
 
 <script>
 export default {
-  name: "index"
+  name: "index",
+  created() {
+    this.getUid()
+  },
+  data() {
+    return {
+      homeUserId: null,
+    }
+  },
+  methods: {
+    getUid(){
+      this.homeUserId = window.sessionStorage.getItem('uid')
+    },
+    toLogin() {
+      this.$router.push("/home/homeUser/login")
+    },
+    toLogout() {
+      window.sessionStorage.removeItem('uid')
+      this.axios.get("/api/home/homeUser/logout").then(({data}) => {
+        if (data.flag) {
+          this.$message.success("注销成功")
+          this.$router.go(0)
+        }
+      });
+    },
+  },
+
 }
 </script>
 

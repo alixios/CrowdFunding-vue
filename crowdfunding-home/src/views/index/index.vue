@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!--slider-area start-->
     <div class="slider-area slider-area-02 ">
       <!--          <div class="right-border-shape">

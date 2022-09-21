@@ -29,7 +29,7 @@ export default new Vuex.Store({
     },
     login (state, user) {
       state.uid = user.uid;
-      state.avatar = user.avatar;
+      state.avatar = user.headPic;
       state.username = user.name
       state.email = user.email;
     },
@@ -37,10 +37,7 @@ export default new Vuex.Store({
       state.uid = null
       state.avatar = null
       state.username = null
-      state.nickname = null
       state.email = null
-      state.loginType = null
-      state.token = ''
     },
   },
   actions: {},
