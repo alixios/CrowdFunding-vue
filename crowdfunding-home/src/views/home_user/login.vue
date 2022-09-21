@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div >
   <div class="main">
+
     <div class="login">
       <div class="log-con layui-form" v-model="loginForm">
         <span>登录</span>
@@ -30,7 +31,7 @@
         <div class="layui-form-item" style="text-align: center;">
           <a style="color: #FFF;" href="/home/homeUser/register">注册</a>
           <a style="color: #FFF;" href="/home/index/index">首页</a>
-          <a style="color: #FFF;" href="/system/login">前往后台</a>
+          <a style="color: #FFF;" href="http://localhost:8081/login">前往后台</a>
         </div>
       </div>
     </div>
@@ -64,7 +65,7 @@ export default {
   },
   methods: {
     getVerifyCode() {
-      axios.get("http://localhost:10010/captcha").then(({data}) => {
+      axios.get("/api/captcha").then(({data}) => {
         console.log(data.data)
         this.verifyCode = data.data
 
@@ -72,12 +73,13 @@ export default {
     },
     login() {
       const _this = this;
-
-      axios.post("http://localhost:10010/home/homeUser/login",_this.loginForm).then(({data})=>{
+      axios.post("/api/home/homeUser/login",_this.loginForm).then(({data})=>{
         if (data.flag) {
           console.log("登陆成功")
           _this.$message.success(data.message);
-          //_this.$router.push({ path: "/" });
+          _this.$router.back(-1);
+        }else{
+          _this.$message.error(data.message);
         }
       })
     }

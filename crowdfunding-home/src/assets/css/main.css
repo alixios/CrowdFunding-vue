@@ -3413,8 +3413,8 @@ input.main-search-input:-ms-input-placeholder {
 }
 .projects-02 .projects__content::before {
   position: absolute;
-  content: "\f10c";
-  font-family: "Flaticon";
+  content: '\f57c';
+  font-family: "FontAwesome";
   bottom: 40px;
   color: #ededed;
   font-size: 85px;
@@ -3503,9 +3503,9 @@ input.main-search-input:-ms-input-placeholder {
   position: relative;
 }
 .nice-select.sort-area::before {
-  content: '\f078';
+  content: '\f054';
   position: absolute;
-  font-family: 'Font Awesome 5 pro';
+  font-family: 'FontAwesome';
   line-height: 1;
   color: #000846;
   font-size: 14px;
@@ -4267,8 +4267,8 @@ ul.timeline li.timeline-list:hover::after {
 }
 .trusted__content::before {
   position: absolute;
-  content: "\f4c5";
-  font-family: "Font Awesome 5 pro";
+  content: "\f054";
+  font-family: "FontAwesome";
   bottom: 40px;
   color: #ededed;
   font-size: 85px;
@@ -4611,9 +4611,9 @@ ul.timeline li.timeline-list:hover::after {
   }
 }
 .details-list li::before {
-  content: '\f00c';
+  content: '\f054';
   position: absolute;
-  font-family: 'Font Awesome 5 pro';
+  font-family: 'FontAwesome';
   font-size: 14px;
   color: #674df0;
   text-align: center;
@@ -5240,7 +5240,7 @@ ul.timeline li.timeline-list:hover::after {
 }
 .author-img .author-avatar::before {
   content: '\f10e';
-  font-family: 'Font Awesome 5 pro';
+  font-family: 'FontAwesome';
   font-size: 15px;
   color: #1a1e2d;
   position: absolute;
@@ -6182,7 +6182,7 @@ ul.timeline li.timeline-list:hover::after {
 .post-form-area .input-text::before {
   position: absolute;
   content: '\f007';
-  font-family: 'Font Awesome 5 pro';
+  font-family: 'FontAwesome';
   font-size: 15px;
   color: #02b663;
   right: 20px;
@@ -6327,7 +6327,7 @@ ul.timeline li.timeline-list:hover::after {
 .goal-list li::before {
   content: '\f00c';
   position: absolute;
-  font-family: 'Font Awesome 5 pro';
+  font-family: 'FontAwesome';
   font-size: 14px;
   color: #674df0;
   text-align: center;
@@ -6625,9 +6625,9 @@ ul.timeline li.timeline-list:hover::after {
   color: #1a1e2d;
 }
 .card .card-header .btn-link::before {
-  content: "\f054";
+  content: "\f105";
   position: absolute;
-  font-family: "Font Awesome 5 pro";
+  font-family: "FontAwesome";
   font-size: 18px;
   color: #1a1e2d;
   line-height: 1;
@@ -6647,9 +6647,9 @@ ul.timeline li.timeline-list:hover::after {
   background: #23293e;
 }
 .card .card-header .collapsed::before {
-  content: "\f054";
+  content: "\f105";
   position: absolute;
-  font-family: "Font Awesome 5 pro";
+  font-family: "FontAwesome";
   font-size: 18px;
   color: #fed857;
   line-height: 1;
@@ -6799,7 +6799,7 @@ ul.timeline li.timeline-list:hover::after {
 .footer__widget .fot-list li a::before {
   content: '\f054';
   position: absolute;
-  font-family: 'Font Awesome 5 pro';
+  font-family: 'FontAwesome';
   font-size: 13px;
   color: #9197ae;
   left: 0;

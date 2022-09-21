@@ -1,5 +1,6 @@
 <template>
   <div>
+
   <!--page-title-area start-->
   <section class="page-title-area" style="background-image:url(/home/images/goal/06.jpg);">
     <div class="right-border-shape">
@@ -12,7 +13,9 @@
             <h1 class="page-title wow fadeInUp2 animated" data-wow-delay='.1s'>联系我们</h1>
             <div class="breadcrumb">
               <ul class="breadcrumb-list wow fadeInUp2 animated" data-wow-delay='.3s'>
-                <li><a href="/home/index/index">首页 <i class="far fa-chevron-right"></i></a></li>
+                <li><a href="/home/index/index">首页 <i>
+                  <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                </i></a></li>
                 <li><a class="active">联系我们</a></li>
               </ul>
             </div>

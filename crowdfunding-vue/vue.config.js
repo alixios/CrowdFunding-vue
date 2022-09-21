@@ -1,5 +1,7 @@
 module.exports = {
   productionSourceMap: false,
+  //忽略ESlint代码规范
+  lintOnSave: false,
   devServer: {
     proxy: {
       "/api": {

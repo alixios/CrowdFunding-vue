@@ -1,86 +1,30 @@
 <template>
   <el-card class="main-card">
-    <div class="title">{{ this.$route.name }}</div>
-    <!-- 表格操作 -->
-    <div class="operation-container">
-      <el-button
-        type="primary"
-        size="small"
-        icon="el-icon-plus"
-        @click="openModel(null)"
-      >
-        新增
-      </el-button>
-      <el-button
-        type="danger"
-        size="small"
-        icon="el-icon-delete"
-        :disabled="tagIdList.length == 0"
-        @click="isDelete = true"
-      >
-        批量删除
-      </el-button>
-      <div style="margin-left:auto">
-        <el-input
-          v-model="keywords"
-          prefix-icon="el-icon-search"
-          size="small"
-          placeholder="请输入标签名"
-          style="width:200px"
-          @keyup.enter.native="searchTags"
-        />
-        <el-button
-          type="primary"
-          size="small"
-          icon="el-icon-search"
-          style="margin-left:1rem"
-          @click="searchTags"
-        >
-          搜索
-        </el-button>
-      </div>
-    </div>
+
     <!-- 表格展示 -->
     <el-table
-      border
-      :data="tagList"
-      v-loading="loading"
-      @selection-change="selectionChange"
+        border
+        :data="dataList"
+        @selection-change="selectionChange"
+        v-loading="loading"
     >
       <!-- 表格列 -->
       <el-table-column type="selection" width="55" />
-      <!-- 标签名 -->
-      <el-table-column prop="tagName" label="标签名" align="center">
+      <!-- 分类名 -->
+      <el-table-column prop="name" label="分类名" align="center" />
+      <el-table-column  label="审核" width="170" align="center">
         <template slot-scope="scope">
-          <el-tag>
-            {{ scope.row.tagName }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <!-- 文章量 -->
-      <el-table-column prop="tagCount" label="文章量" align="center" />
-      <!-- 标签创建时间 -->
-      <el-table-column prop="createTime" label="创建时间" align="center">
-        <template slot-scope="scope">
-          <i class="el-icon-time" style="margin-right:5px" />
-          {{ scope.row.createTime | date }}
-        </template>
-      </el-table-column>
-      <!-- 列操作 -->
-      <el-table-column label="操作" align="center" width="160">
-        <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="openModel(scope.row)">
-            编辑
-          </el-button>
           <el-popconfirm
-            title="确定删除吗？"
-            style="margin-left:1rem"
-            @confirm="deleteTag(scope.row.tagId)"
+              title="审核通过"
+              @confirm="successExamine(scope.row.id)"
           >
-            <el-button size="mini" type="danger" slot="reference">
-              删除
+            <el-button v-show="scope.row.status==1" type="success" size="mini" slot="reference">
+              通过
             </el-button>
           </el-popconfirm>
+          <el-button v-show="scope.row.status==1" @click="failExamine(scope.row.id)" size="mini" type="danger" style="margin-left:5px">
+            不通过
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -96,57 +40,24 @@
       :page-sizes="[5, 10, 20]"
       layout="total, sizes, prev, pager, next, jumper"
     />
-    <!-- 批量删除对话框 -->
-    <el-dialog :visible.sync="isDelete" width="30%">
-      <div class="dialog-title-container" slot="title">
-        <i class="el-icon-warning" style="color:#ff9900" />提示
-      </div>
-      <div style="font-size:1rem">是否删除选中项？</div>
-      <div slot="footer">
-        <el-button @click="isDelete = false">取 消</el-button>
-        <el-button type="primary" @click="deleteTag(null)">
-          确 定
-        </el-button>
-      </div>
-    </el-dialog>
-    <!-- 编辑对话框 -->
-    <el-dialog :visible.sync="addOrEdit" width="30%">
-      <div class="dialog-title-container" slot="title" ref="tagTitle" />
-      <el-form label-width="80px" size="medium" :model="tagForm">
-        <el-form-item label="标签名">
-          <el-input style="width:220px" v-model="tagForm.tagName" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer">
-        <el-button @click="addOrEdit = false">取 消</el-button>
-        <el-button type="primary" @click="addOrEditTag">
-          确 定
-        </el-button>
-      </div>
-    </el-dialog>
+
   </el-card>
 </template>
 
 <script>
 export default {
   created() {
-    this.listTags();
+    this.listProjects();
   },
   data: function() {
     return {
-      isDelete: false,
-      loading: true,
-      addOrEdit: false,
-      keywords: null,
-      tagList: [],
-      tagIdList: [],
-      tagForm: {
-        id: null,
-        tagName: ""
+      dataList: [],
+      pagination: { // 分页相关模型数据
+        currentPage: 1, // 当前页码
+        pageSize: 6, // 每页显示的记录数
+        total: 0, // 总记录数
+        queryString: null // 查询条件
       },
-      current: 1,
-      size: 10,
-      count: 0
     };
   },
   methods: {
@@ -156,54 +67,14 @@ export default {
         this.tagIdList.push(item.tagId);
       });
     },
-    searchTags() {
-      this.current = 1;
-      this.listTags();
-    },
-    sizeChange(size) {
-      this.size = size;
-      this.listTags();
-    },
-    currentChange(current) {
-      this.current = current;
-      this.listTags();
-    },
-    deleteTag(id) {
-      var param = {};
-      if (id == null) {
-        param = { data: this.tagIdList };
-      } else {
-        param = { data: [id] };
-      }
+    listProjects() {
       this.axios
-        .delete("/api/tag/admin/delete", param)
-        .then(({ data }) => {
-          if (data.flag) {
-            this.$notify.success({
-              title: "成功",
-              message: data.message
-            });
-            this.listTags();
-          } else {
-            this.$notify.error({
-              title: "失败",
-              message: data.message
-            });
-          }
-        });
-      this.isDelete = false;
-    },
-    listTags() {
-      const param = {
-        currentPage: this.current,
-        pageSize: this.size,
-        queryString: this.keywords
-      };
-      this.axios.post("/api/tag/admin/tagList", param).then(({ data }) => {
-        this.tagList = data.data.records;
-        this.count = data.data.total;
-        this.loading = false;
-      });
+          .post("/api/category/admin/typeList", this.pagination)
+          .then(({data}) => {
+            this.dataList = data.data.records;
+            this.count = data.data.total;
+            this.loading = false;
+          });
     },
     openModel(tag) {
       if (tag != null) {

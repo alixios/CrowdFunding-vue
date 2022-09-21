@@ -1,599 +1,317 @@
 <template>
   <div>
-  <div class="box-container layui-form" lay-filter="main">
-    <div class="layui-row layui-col-space15">
-      <div class="layui-col-md3">
-
-        <img class="user-image" src="/photo/view?filename=${homeUser.headPic}" id="upload_headPic"/>
-
-        <img  class="user-image" src="/home/images/default-head.jpg" id="upload_headPic"/>
-
-
-      <img  class="user-image" src="/home/images/default-head.jpg" id="upload_headPic"/>
-
-  </div>
-  <div class="layui-col-md9">
-    <div class="layui-row pdding-left-right5">
-      <span>姓名:</span>${homeUser.name}
-    </div>
-    <div class="layui-row pdding-left-right5">
-      <span>性别:</span>
-
-      <i class="layui-icon layui-icon-female" style="color: dodgerblue"></i>
-
-      <i class="layui-icon layui-icon-male" style="color: darkorchid"></i>
-
-
-  </div>
-  <div class="layui-row pdding-left-right5">
-    <span>邮箱:</span>${homeUser.email}
-  </div>
-  <div class="layui-row pdding-left-right5">
-    <span>手机号:</span>${homeUser.mobile}
-  </div>
-  <div class="layui-row pdding-left-right5">
-    <span>余额:</span>${homeUser.balance}元
-  </div>
-  <div class="layui-row pdding-left-right5">
-    <span>其他操作:</span>
-    <a href="javascript:M.recharge();" style="margin-left: 15px;">点击充值</a>
-    <a href="javascript:M.withdraw();" style="margin-left: 15px;">申请提现</a>
-    <a href="javascript:M.addBackCard();" style="margin-left: 15px;">添加银行卡</a>
-    <a href="javascript:M.addLocations();" style="margin-left: 15px;">添加收货地址</a>
-  </div>
-  </div>
-  </div>
-  <div class="layui-row">
-    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-      <ul class="layui-tab-title">
-        <li class="layui-this" lay-id="0">
-          <i class="layui-icon layui-icon-username"></i>个人信息
-        </li>
-        <li lay-id="1">
-          <i class="layui-icon layui-icon-password"></i>密码修改
-        </li>
-        <li lay-id="2">
-          <i class="layui-icon layui-icon-file-b"></i>我的新闻
-        </li>
-        <li lay-id="3">
-          <i class="layui-icon layui-icon-template"></i>我的众筹
-        </li>
-        <li lay-id="4">
-          <i class="layui-icon layui-icon-face-smile-b"></i>我的捐赠
-        </li>
-        <li lay-id="5">
-          <i class="layui-icon layui-icon-location"></i>地址管理
-        </li>
-        <li lay-id="6">
-          <i class="layui-icon layui-icon-star"></i>我的收藏
-        </li>
-        <li lay-id="7">
-          <i class="layui-icon layui-icon-survey"></i>银行卡管理
-        </li>
-        <li lay-id="8">
-          <i class="layui-icon layui-icon-dollar"></i>充值记录
-        </li>
-        <li lay-id="9">
-          <i class="layui-icon layui-icon-rmb"></i>提现记录
-        </li>
-        <li lay-id="10">
-          <i class="layui-icon layui-icon-notice"></i>赠品接收
-        </li>
-      </ul>
-      <div class="layui-tab-content">
-        <#--个人信息-->
-        <div class="layui-tab-item layui-show">
-          <div class="layui-row layui-form">
-            <div class="layui-form-item">
-              <label class="layui-form-label">手机号:</label>
-              <div class="layui-input-block">
-                <input type="text" class="layui-input layui-disabled" placeholder="请输入手机号" value="${homeUser.mobile}" disabled />
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">邮箱:</label>
-              <div class="layui-input-block">
-                <input type="text" class="layui-input layui-disabled" placeholder="请输入邮箱" value="${homeUser.email}" disabled />
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">身份证号码:</label>
-              <div class="layui-input-block">
-                <input type="text" class="layui-input layui-disabled" placeholder="请输入身份证号码" value="${homeUser.idNumber}" disabled />
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">性别:</label>
-              <div class="layui-input-block">
-
-
-          </div>
+    <div class="box-container layui-form" lay-filter="main">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+          <img class="user-image" :src="userInfo.headPic" id="upload_headPic"/>
         </div>
-        <div class="layui-form-item">
-          <label class="layui-form-label">姓名:</label>
-          <div class="layui-input-block">
-            <input type="text" class="layui-input" id="name" placeholder="请输入姓名" value="${homeUser.name}" />
+        <div class="layui-col-md9">
+          <div class="layui-row pdding-left-right5">
+            <span>姓名:</span>{{ userInfo.name }}
+          </div>
+          <div class="layui-row pdding-left-right5">
+            <span>性别:</span>
+            <i class="layui-icon layui-icon-female" style="color: dodgerblue"></i>
+          </div>
+          <div class="layui-row pdding-left-right5">
+            <span>邮箱:</span>{{ userInfo.email }}
+          </div>
+          <div class="layui-row pdding-left-right5">
+            <span>手机号:</span>{{ userInfo.mobile }}
+          </div>
+          <div class="layui-row pdding-left-right5">
+            <span>余额:</span>{{ userInfo.balance }}元
+          </div>
+          <div class="layui-row pdding-left-right5">
+            <span>其他操作:</span>
+            <a href="javascript:M.recharge();" style="margin-left: 15px;">点击充值</a>
+            <a href="javascript:M.withdraw();" style="margin-left: 15px;">申请提现</a>
+            <a href="javascript:M.addBackCard();" style="margin-left: 15px;">添加银行卡</a>
+            <a href="javascript:M.addLocations();" style="margin-left: 15px;">添加收货地址</a>
           </div>
         </div>
       </div>
-    </div>
-    <#--修改密码-->
-    <div class="layui-tab-item">
-      <div class="layui-row layui-form">
-        <div class="layui-form-item">
-          <label class="layui-form-label">旧密码:</label>
-          <div class="layui-input-block">
-            <input type="password" class="layui-input password"  placeholder="请输入旧密码" />
-          </div>
-        </div>
-        <div class="layui-form-item">
-          <label class="layui-form-label">新密码:</label>
-          <div class="layui-input-block">
-            <input type="password" class="layui-input newPassword"  placeholder="请输入新密码" />
-          </div>
-        </div>
-        <div class="layui-form-item">
-          <label class="layui-form-label">确认密码:</label>
-          <div class="layui-input-block">
-            <input type="password" class="layui-input confirmPassword"  placeholder="请输入确认密码" />
-          </div>
-        </div>
-      </div>
+
     </div>
 
-    <div class="layui-tab-item">
-      <div class="layui-row">
-        <table class="layui-table">
-          <tr>
-            <th>新闻标题</th>
-            <th>所属类型</th>
-            <th>发布时间</th>
-          </tr>
 
-          <tr>
-            <td>
-              <a href="/home/news/detail?id=${news.id}">
-
-              </a>
-            </td>
-            <td>${news.newsType.name}</td>
-            <td>${news.createTime}</td>
-
-          </tr>
-
-        <tr>
-          <td colspan="20">暂无数据</td>
-        </tr>
-
-      </table>
-      <div id="newsPage">
-
-      </div>
-    </div>
-    <div>
-    </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>项目标题</th>
-          <th>项目标签</th>
-          <th>开始时间</th>
-          <th>结束时间</th>
-          <th>目标金额</th>
-          <th>已筹金额</th>
-          <th>项目类型</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-
-        <tr>
-          <td>
-            <a href="/home/project/detail?id=${project.id}">
-
-
-            </a>
-          </td>
-          <td>${project.projectCategory.name}</td>
-          <td>${project.start?string('yyyy-MM-dd')}</td>
-          <td>${project.end?string('yyyy-MM-dd')}</td>
-          <td>${project.targetPrice}</td>
-          <td>${project.preparePrice}</td>
-          <td>
-
-          </td>
-          <td>
-
-          </td>
-          <td style="width: 20%;">
-
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.submitProject('${project.id}')">
-              提交申请
-            </button>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.editProject('${project.id}')">
-              重新编辑
-            </button>
-
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.editProject('${project.id}')">
-              重新编辑
-            </button>
-
-            查看原因
-
-
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.feedAccept('${project.id}')">
+  <el-tabs class="tabs-container"  type="border-card" v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane label="个人信息" name="first">
+    </el-tab-pane>
+    <el-tab-pane label="我的众筹" name="second">
+      <!-- 表格展示 -->
+      <el-table
+          border
+          :data="projectList"
+      >
+        <!-- 文章标题 -->
+        <el-table-column prop="caption" label="标题" align="center" />
+        <!-- 文章分类 -->
+        <el-table-column
+            prop="categoryName"
+            label="分类"
+            width="80"
+            align="center"
+        />
+        <!-- 文章开始时间 -->
+        <el-table-column
+            prop="start"
+            label="开始时间 "
+            width="120"
+            align="center"
+        >
+          <template slot-scope="scope">
+            <i class="el-icon-time" style="margin-right:5px" />
+            {{ scope.row.start | date }}
+          </template>
+        </el-table-column>
+        <!--结束时间 -->
+        <el-table-column
+            prop="end"
+            label="开始时间 "
+            width="120"
+            align="center"
+        >
+          <template slot-scope="scope">
+            <i class="el-icon-time" style="margin-right:5px" />
+            {{ scope.row.end | date }}
+          </template>
+        </el-table-column>
+        <!-- 目标金额  -->
+        <el-table-column prop="targetPrice" width="100" label="目标金额" align="center" />
+        <!-- 发布人 -->
+        <el-table-column prop="homeUserName" width="120" label="已筹金额" align="center" />
+        <!-- 状态 -->
+        <el-table-column prop="status" label="状态" width="100" align="center" >
+          <template slot-scope="scope" >
+            {{projectStatus(scope.row.status).name}}
+          </template>
+        </el-table-column>
+        <!-- 类型 -->
+        <el-table-column prop="type" label="类型" width="80" align="center" >
+          <template slot-scope="scope" >
+            {{projectType(scope.row.type).name}}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" width="200">
+          <template slot-scope="scope">
+            <el-button v-show="scope.row.type==1"
+                type="success"
+                size="mini"
+                style="margin-left: 5px"
+                @click="goAcceptList(scope.row.id)"
+            >
               赠品管理
-            </button>
+            </el-button>
 
-            <button class="layui-btn layui-btn-primary layui-btn-sm layui-disabled" disabled type="button">
-              赠品管理
-            </button>
-
-
-
-        </td>
-        </tr>
-
-
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
-
-    </table>
-    <div id="proPage">
-
-    </div>
-  </div>
-  <div>
-  </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>项目标题</th>
-          <th>项目标签</th>
-          <th>捐赠金额</th>
-          <th>项目类型</th>
-          <th>状态</th>
-        </tr>
-
-        <tr>
-          <td>
-            <a href="/home/project/detail?id=${donateRecord.project.id}">
-
-            </a>
-          </td>
-          <td>${donateRecord.project.projectCategory.name}</td>
-          <td>${donateRecord.money}</td>
-          <td>
-
-            公益项目
-
-            非公益项目
-
-          </td>
-          <td>
-
-          </td>
-        </tr>
-
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
-
-    </table>
-    <div id="donPage">
-
-    </div>
-  </div>
-  <div>
-  </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>收件地址</th>
-          <th>手机号</th>
-          <th>操作</th>
-        </tr>
-
-        <tr>
-          <td>${local.address}</td>
-          <td>${local.mobile}</td>
-          <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.editLocation('${local.id}','${local.mobile}','${local.address}')">
+            <el-button v-show="scope.row.status==3 || scope.row.status==0"
+                type="primary"
+                size="mini"
+                style="margin-left: 5px"
+                @click="editProject(scope.row.id)"
+            >
               编辑
-            </button>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.deleteLocation('${local.id}')">
-              删除
-            </button>
-          </td>
-        </tr>
-
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
-
-    </table>
-    <div id="localPage">
-
-    </div>
-  </div>
-  <div>
-  </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>项目标题</th>
-          <th>项目标签</th>
-          <th>项目类型</th>
-          <th>项目状态</th>
-          <th>操作</th>
-        </tr>
-
-        <tr>
-          <td>
-            <a href="/home/project/detail?id=${collect.project.id}">
-
-            </a>
-          </td>
-          <td>${collect.project.projectCategory.name}</td>
-          <td>
-
-            公益项目
-
-            非公益项目
-
-          </td>
-          <td>
-
-          </td>
-          <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.cancelColl('${collect.id}')">
-              取消收藏
-            </button>
-          </td>
-        </tr>
-
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
-
-    </table>
-    <div id="collPage">
-
-    </div>
-  </div>
-  <div>
-  </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>卡号</th>
-          <th>银行</th>
-          <th>支行</th>
-          <th>开户人姓名</th>
-          <th>开户人手机号</th>
-          <th>操作</th>
-        </tr>
-
-        <tr>
-          <td></td>
-          <td data-bank="${card.bank}">
-
-          </td>
-          <td>${card.branch}</td>
-          <td>${card.name}</td>
-          <td>${card.phone}</td>
-          <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.deleteCard('${card.id}')">
-              删除
-            </button>
-          </td>
-        </tr>
-
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
-
-    </table>
-    <div id="cardPage">
-
-    </div>
-  </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>订单编号</th>
-          <th>金额</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-
-        <tr>
-          <td>${alipay.outTradeNo}</td>
-          <td>${alipay.totalAmount}</td>
-          <td>
-
-            <font style="color: orange">待支付</font>
-
-            <font style="color: green">已支付</font>
-
-            <font style="color: blue">已退款</font>
-
-            <font style="color: red">已关闭</font>
-
-          </td>
-          <td>
-
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button" onclick="M.goPay('${alipay.outTradeNo}')">
-              继续支付
-            </button>
-
-            <button class="layui-btn layui-btn-primary layui-btn-sm layui-disabled" disabled type="button">
-              继续支付
-            </button>
-
-          </td>
-        </tr>
-
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
-
-    </table>
-    <div id="alipayPage">
-
-    </div>
-  </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>银行卡号</th>
-          <th>金额</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-
-        <tr>
-          <td>${with.bankCard}</td>
-          <td>${with.money}</td>
-          <td>
-
-          </td>
-          <td>
-
-            查看原因
-
-
-            <button class="layui-btn layui-btn-sm layui-disabled" disabled type="button">
+            </el-button>
+            <el-button v-show="scope.row.status==3"
+                type="danger"
+                size="mini"
+                style="margin-top: 5px;margin-left: 5px"
+                @click="not_pass(scope.row.notPassReason)"
+            >
               查看原因
-            </button>
+            </el-button>
+            <el-button v-show="scope.row.status==0"
+                type="success"
+                size="mini"
+                style="margin-top: 5px;margin-left: 5px"
+                @click="submit_audit(scope.row.id)"
+            >
+              提交审核
+            </el-button>
 
-          </td>
-        </tr>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页 -->
+      <el-pagination
+          class="pagination-container"
+          background
+          @current-change="currentChange"
+          :current-page="pagination.currentPage"
+          :total="pagination.total"
 
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
+          layout="total, prev, pager, next, jumper"
+      />
+    </el-tab-pane>
+    <el-tab-pane label="我的捐赠" name="third">我的捐赠</el-tab-pane>
+    <el-tab-pane label="地址管理" name="fourth">地址管理</el-tab-pane>
+    <el-tab-pane label="我的收藏" name="fifth">我的收藏</el-tab-pane>
+    <el-tab-pane label="银行卡管理" name="sixth">银行卡管理</el-tab-pane>
+    <el-tab-pane label="充值记录" name="seventh">充值记录</el-tab-pane>
+    <el-tab-pane label="提现记录" name="eighth">提现记录</el-tab-pane>
+    <el-tab-pane label="赠品接收" name="ninth">赠品接收</el-tab-pane>
+    <el-tab-pane label="我的新闻" name="tenth">我的新闻</el-tab-pane>
 
-    </table>
-    <div id="withPage">
-
-    </div>
-  </div>
-  </div>
-
-  <div class="layui-tab-item">
-    <div class="layui-row">
-      <table class="layui-table">
-        <tr>
-          <th>项目标题</th>
-          <th>回馈标题</th>
-          <th>接收人姓名</th>
-          <th>接收地址</th>
-          <th>预计发放时间</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-
-        <tr>
-          <td>
-
-          </td>
-          <td>
-
-          </td>
-          <td>${feed.name}</td>
-          <td>${feed.address}</td>
-          <td>${feed.feedBack.grantDate}</td>
-          <td>
-
-          </td>
-          <td>
-
-            <button class="layui-btn layui-btn-primary layui-btn-sm" type="button"
-                    onclick="M.ensureAccept('${feed.id}')">
-              确认接收
-            </button>
-
-            <button class="layui-btn layui-btn-primary layui-btn-sm layui-disabled" disabled type="button">
-              确认接收
-            </button>
-
-
-          </td>
-        </tr>
-
-      <tr>
-        <td colspan="20">暂无数据</td>
-      </tr>
-
-    </table>
-    <div id="feedPage">
-
-    </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  <div class="layui-row" style="text-align: right;" id="form-submit-btn">
-
-
-  </div>
-  </div>
-  </div>
-
-
-
-
-
-
-
-
-  <div class='simple_dlg_define_3' style='display:none'>
-    <div class='pane' style='padding:16px'>
-      <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 80px">手机号:</label>
-        <div class="layui-input-block">
-          <input type="text" class="number layui-input" value="" placeholder="请输入手机号" id="mobile"/>
-        </div>
-      </div>
-      <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 80px">地址:</label>
-        <div class="layui-input-block">
-          <textarea class="address layui-textarea" placeholder="请输入2~100字"></textarea>
-        </div>
-      </div>
-    </div>
-  </div>
+  </el-tabs>
   </div>
 </template>
 
 <script>
+
 export default {
-name: "index"
+  name: "index",
+  data() {
+    return {
+      loading: true,
+      activeName: 'second',
+      userInfo: "",
+      projectList: [], //
+      pagination: { // 分页相关模型数据
+        currentPage: 1, // 当前页码
+        pageSize: 5, // 每页显示的记录数
+        total: 0, // 总记录数
+        queryString: null // 查询条件
+      },
+    }
+  },
+  created() {
+    this.getUserInfo();
+    this.getProjectList();
+  },
+  methods: {
+    currentChange(current) {
+      this.current = current;
+      this.projectList();
+    },
+    handleClick(tab, event) {
+      console.log(tab, event);
+    },
+    getUserInfo() {
+      this.axios.get("/api/home/homeUser/userInfo")
+          .then(({data}) => {
+            this.userInfo = data.data;
+
+          });
+    },
+    getProjectList() {
+      this.axios.post("/api/home/homeUser/projectList",this.pagination).then(({data}) => {
+        if(data.flag){
+          this.projectList = data.data.records
+
+        }else {
+          this.$message.error(data.message)
+        }
+      })
+    },
+    submit_audit(projectId) {
+      this.axios.post(`/api/home/project/submit_audit/${projectId}`).then(({data}) => {
+        if(data.flag){
+          this.$message.success(data.message)
+          this.getProjectList()
+        }else {
+          this.$message.error(data.message)
+        }
+      })
+    },
+    editProject(projectId){
+      this.$router.push({ path: "/project/add/" + projectId });
+    },
+    not_pass(notPassReason){
+      this.$alert(notPassReason, '未通过原因' );
+    },
+    goAcceptList(projectId){
+      this.$router.push({ path: "/home/accept/list/" + projectId });
+    }
+  },
+  computed: {
+    projectStatus() {
+      return function (status) {
+        var name = "";
+        switch (status) {
+          case 0:
+            name = "未提交";
+            break;
+          case 1:
+            name = "待审核";
+            break;
+          case 2:
+            name = "通过";
+            break;
+          case 3:
+            name = "未通过";
+            break;
+          case 4:
+            name = "募款";
+            break;
+          case 5:
+            name = "结束";
+            break;
+        }
+        return {
+          name: name
+        };
+      };
+    },
+    projectType() {
+      return function (type) {
+        var name = "";
+        switch (type) {
+          case 0:
+            name = "公益";
+            break;
+          case 1:
+            name = "非公益";
+            break;
+        }
+        return {
+          name: name
+        };
+      };
+    },
+  }
 }
 </script>
 
 <style scoped>
+.tabs-container{
+  margin-left: 110px;
+  margin-right: 110px;
+  margin-bottom: 10px;
+}
+.pagination-container {
+  float: right;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.box-container {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 28px;
+  font-weight: 400;
+  font-style: normal;
+  color: #716ca2;
+  width: 960px;
+  height: 250px;
+  min-height:150px;
+  margin: 15px auto;
+}
+
+.user-image {
+  height: 125px;
+  border-radius: 4px;
+  width: 75%;
+  object-fit: cover;
+  margin-left: 20px;
+}
+
+.pdding-left-right5 {
+  padding: 5px 0px;
+}
+
+.pdding-left-right15 {
+  display: inline-block;
+  margin: 0px 15px;
+  padding: 15px 0px;
+}
 
 </style>
